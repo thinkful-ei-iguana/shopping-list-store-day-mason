@@ -1,3 +1,4 @@
+'use strict';
 const store = {
   items: [
     { id: cuid(), name: 'apples', checked: false },
@@ -12,13 +13,15 @@ const generateItemElement = function (item) {
   let itemTitle = `<span class='shopping-item shopping-item__checked'>${item.name}</span>`;
   if (!item.checked) {
     itemTitle = `
+    <form> 
+      <input type="text" id="editInput" value="${item.name}">Edit Item</input>  
      <span class='shopping-item'>${item.name}</span>
-    `;
+      </form>`;
   }
 
   return `
     <li class='js-item-element' data-item-id='${item.id}'>
-      ${itemTitle}
+        ${itemTitle}
       <div class='shopping-item-controls'>
         <button class='shopping-item-toggle js-item-toggle'>
           <span class='button-label'>check</span>
@@ -26,6 +29,7 @@ const generateItemElement = function (item) {
         <button class='shopping-item-delete js-item-delete'>
           <span class='button-label'>delete</span>
         </button>
+
       </div>
     </li>`;
 };
@@ -134,6 +138,7 @@ const toggleCheckedItemsFilter = function () {
   store.hideCheckedItems = !store.hideCheckedItems;
 };
 
+
 /**
  * Places an event listener on the checkbox 
  * for hiding completed items.
@@ -144,6 +149,7 @@ const handleToggleFilterClick = function () {
     render();
   });
 };
+
 
 /**
  * This function will be our callback when the
